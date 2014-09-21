@@ -113,7 +113,7 @@ var Shooter = function () {
 		d3.select('.modal')
 			.transition()
 			.duration(600)
-				.style('height', '301px')
+				.style('height', '320px')
 				.style('opacity', 1);
 	};
 
