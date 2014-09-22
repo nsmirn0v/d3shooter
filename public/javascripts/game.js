@@ -67,7 +67,8 @@ var Shooter = function () {
 			.attr('width', 0)
 			.transition()
 			.duration(600)
-				.attr('width', 370);
+				.attr('width', 370)
+				.style('fill', '#1ECD97');
 
 		healthLabel = scope.healthContaner.select('.label');
 
@@ -222,8 +223,10 @@ var Shooter = function () {
 	};
 
 	scope.updateHealth = function (damage) {
-		var health = this.healthContaner.attr('health');
+		var health,
+			percentage;
 
+		health = this.healthContaner.attr('health');
 		health -= damage;
 
 		if (health < 0) {
@@ -231,17 +234,32 @@ var Shooter = function () {
 			scope.gameover();
 		}
 
+		percentage = d3.round(health / 370 * 100);
+
 		this.healthContaner.attr('health', health);
 
 		this.healthContaner
 			.select('.bar-health')
 			.transition()
 			.duration(600)
-				.attr('width', health);
+				.attr('width', health)
+				.style('fill', function () {
+					var red = '#d9534f',
+						orange = '#f0ad4e',
+						green = '#1ECD97';
+
+					if (percentage > 60) {
+						return green;
+					} else if (percentage > 25) {
+						return orange;
+					} else {
+						return red;
+					}
+				});
 
 		this.healthContaner
 			.select('.label')
-			.text(d3.round(health / 370 * 100) + '%');
+			.text(percentage + '%');
 	};
 
 	scope.initCounter = function (id) {
