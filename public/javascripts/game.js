@@ -43,11 +43,20 @@ var Shooter = function () {
 		scope.initAccuracy();
 
 		scope.timerIntervalId = setInterval(function () {
+			var value;
+
 			scope.updateCounter(scope.timer, 1);
-			var value = scope.timer.attr('value');
+			value = scope.timer.attr('value');
+
 			if (value % 5 === 0) {
 				scope.T -= 50;
 			}
+
+			value = parseInt(scope.healthContaner.attr('health'), 10);
+			if (value + 1 < 370) {
+				scope.updateHealth(-1);
+			}
+
 		}, 1000);
 
 		scope.healthContaner.attr('health', 370)
